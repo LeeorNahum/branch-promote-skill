@@ -3,7 +3,7 @@ name: branch-promote
 description: Inspect branch state and safely promote code between deployment branches. Use when moving changes between development, staging, and production branches, handling branch drift or divergence, or chaining promotion stages.
 metadata:
   author: Leeor Nahum
-  version: "2.1.0"
+  version: "2.2.0"
 ---
 
 # Branch Promote
@@ -29,6 +29,16 @@ If the user indicates they trust your judgment or gives enough context to procee
 ## Verify
 
 Run the repo's available checks (lint, typecheck, build) to understand the state of the code before promoting. If checks fail, report and stop. Do not promote unless the user explicitly says to proceed anyway.
+
+## Runtime Promotion
+
+A branch promotion includes every durable runtime update required for that target stage to work, not just Git.
+
+Before promoting, identify required non-Git state for the target stage: backend function deployments, database schema changes, generated backend clients, provider config, environment variables, storage buckets, queues, webhooks, scheduled jobs, and deployment platform settings.
+
+If a required runtime update is safe, stage-appropriate, and already authorized by the user's prompt, perform it as part of the promotion. If it affects production, secrets, billing, DNS, data deletion, or irreversible migrations, require explicit approval unless the user already explicitly authorized that exact class of action in the promotion request.
+
+The promotion is not complete until Git, required runtime state, and target-stage checks are all updated or explicitly reported as deferred.
 
 ## Promote
 
