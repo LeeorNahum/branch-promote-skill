@@ -3,7 +3,7 @@ name: "branch-promote"
 description: "Inspect branch state and safely promote code between deployment branches. Use when moving changes between development, staging, and production branches, handling branch drift or divergence, or chaining promotion stages."
 metadata:
   author: "Leeor Nahum"
-  version: "2.2.0"
+  version: "2.2.1"
 ---
 
 # Branch Promote

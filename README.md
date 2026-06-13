@@ -7,7 +7,7 @@ Gives the agent orientation to inspect branch state, identify branch roles, dete
 ## Install
 
 ```bash
-git submodule add https://github.com/LeeorNahum/branch-promote-skill.git .agents/skills/branch-promote-skill
+git submodule add https://github.com/LeeorNahum/branch-promote-skill.git .agents/skills/branch-promote
 ```
 
 ## Files
