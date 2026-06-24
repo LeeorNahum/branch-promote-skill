@@ -3,7 +3,7 @@ name: "branch-promote"
 description: "Inspect branch state and safely promote code between deployment branches. Use when moving changes between development, staging, and production branches, handling branch drift or divergence, or chaining promotion stages."
 metadata:
   author: "Leeor Nahum"
-  version: "2.2.1"
+  version: "2.2.2"
 ---
 
 # Branch Promote
@@ -29,6 +29,8 @@ If the user indicates they trust your judgment or gives enough context to procee
 ## Verify
 
 Run the repo's available checks (lint, typecheck, build) to understand the state of the code before promoting. If checks fail, report and stop. Do not promote unless the user explicitly says to proceed anyway.
+
+Local checks validate the source against locally generated types; they cannot detect a deployed backend whose functions or schema have drifted from the committed code. Confirm the live deployment's contract too (for example, its deployed function signatures or schema), so a passing local build never masks a stale or unpushed deployment.
 
 ## Runtime Promotion
 
