@@ -13,3 +13,4 @@ git submodule add https://github.com/LeeorNahum/branch-promote-skill.git .agents
 ## Files
 
 - `SKILL.md` - skill guidance loaded by the agent
+- `AGENTS.md` - maintenance contract for editing this skill
