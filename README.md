@@ -2,7 +2,7 @@
 
 Agent skill for promoting code between deployment branches.
 
-Gives the agent orientation to inspect branch state, identify branch roles, detect drift and divergence, verify before promoting, and handle conflicts or unusual branch topology.
+Gives the agent orientation to inspect branch state, identify branch roles, detect drift and divergence, verify before promoting, handle conflicts or unusual branch topology, and own staged deployments through terminal status.
 
 ## Install
 
