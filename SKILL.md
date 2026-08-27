@@ -1,9 +1,9 @@
 ---
 name: "branch-promote"
-description: "Inspect branch state and safely promote code between deployment branches. Use when moving changes between development, staging, and production branches, handling branch drift or divergence, or chaining promotion stages."
+description: "Inspect branch state and safely promote code between deployment branches. Use when moving changes between development, staging, and production branches, handling branch drift or divergence, chaining promotion stages, or removing branches whose work has already landed."
 metadata:
   author: "Leeor Nahum"
-  version: "2.3.0"
+  version: "2.4.0"
 ---
 
 # Branch Promote
@@ -17,6 +17,7 @@ Before anything else, read the full branch state:
 - Fetch all remotes and list branches with their tips, authors, and ahead/behind counts relative to each other
 - Identify the branch hierarchy the repo uses and the role each branch plays
 - Flag anything unusual: a commit landed directly on a production or staging branch, a staging branch is behind development, branches have diverged unexpectedly, parallel work exists on sibling branches, or a branch tip is authored by a collaborator in a way that may block deployment
+- List every branch that has no role, and say for each whether its tip is already contained in the development branch or still ahead of it
 
 Report what you find before asking for confirmation. Give the user a clear picture so they can make an informed call.
 
@@ -62,6 +63,14 @@ When the repository defines separate staging and production deployment branches,
 
 Do not invent this staged monitoring loop for a repository with only one main branch or for a repository where branch pushes do not trigger meaningful deployments.
 
+## Temporary Branches
+
+Only the role branches persist. Every other branch exists for one piece of work and is temporary unless the repo's agent instructions declare it otherwise, so removing it is part of the promotion that lands its work.
+
+- Delete a landed temporary branch locally and on the remote in the same pass, prune remote-tracking references, and report what was removed
+- Confirm before deleting a branch whose tip is ahead of every role branch, has an open pull request, or belongs to someone else. Work in flight is not clutter
+- Where the hosting service can delete a branch automatically when its pull request merges, turn that on once per repository
+
 ## After
 
-Verify the push succeeded and the target tip matches what was intended. Report any parity concerns across other branches, including any drift or lag introduced by the promotion.
+Verify the push succeeded and the target tip matches what was intended. Report any parity concerns across other branches, including any drift or lag introduced by the promotion, and confirm no temporary branch was left behind by it.
