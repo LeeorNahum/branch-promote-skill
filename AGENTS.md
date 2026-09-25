@@ -6,7 +6,7 @@ Rules for editing the **branch-promote** skill. User-facing guidance lives in `S
 
 | File | Role |
 | --- | --- |
-| `SKILL.md` | Inspect, confirm, verify, runtime promotion, promote, deployment ownership through terminal status, temporary branch cleanup, after steps, and the branch report table |
+| `SKILL.md` | Inspect, confirm, verify, runtime promotion, promote, deployment ownership through terminal status, temporary branch cleanup, after steps, and the branch and stage report tables |
 | `README.md` | Short human summary |
 
 ## Editing

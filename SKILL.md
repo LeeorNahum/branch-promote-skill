@@ -3,7 +3,7 @@ name: "branch-promote"
 description: "Use when moving changes between development, staging, and production deployment branches, checking branch state before a promotion, handling branch drift or divergence, chaining promotion stages, or removing branches whose work has already landed. Inspects branch state and promotes code between deployment branches safely."
 metadata:
   author: "Leeor Nahum"
-  version: "2.5.0"
+  version: "2.6.0"
 ---
 
 # Branch Promote
@@ -60,7 +60,7 @@ When the repository defines separate staging and production deployment branches,
 - Wait for all required staging checks, hosted surfaces, and runtime deployments to succeed before promoting that commit to production
 - Match provider results to the exact commit and stage instead of treating an older successful deployment as evidence for the new push
 - If a check or deployment fails, inspect its real logs, diagnose the cause, make any in-scope repair already authorized by the promotion request, rerun local validation, and restart from the first affected stage
-- If repair needs new authority, secrets, billing or DNS changes, irreversible data work, or another scope expansion, stop and report the exact blocker instead of guessing
+- If repair needs an action Runtime Promotion reserves for explicit approval, or any other scope expansion, stop and report the exact blocker instead of guessing
 - After promoting to production, wait again for every required check and deployment, then smoke-test the canonical live origins or health endpoints
 - Keep the user informed during long builds, but do not hand back while required deployment state is still pending
 
@@ -77,3 +77,9 @@ Only the role branches persist. Every other branch exists for one piece of work 
 ## After
 
 Verify the push succeeded and the target tip matches what was intended. End with the Inspect table updated to the final state: the Action column records what was promoted and deleted, any parity concern across other branches, including drift or lag the promotion introduced, and that no temporary branch was left behind.
+
+When the promotion touched a deployed stage, follow it with a second table, one row per check, deployment, runtime update, and smoke test each stage required:
+
+| Stage | Check or deployment | Result |
+| --- | --- | --- |
+| <staging, production, or another stage> | <the check, deployment, runtime update, or smoke test, for the exact pushed commit> | <its terminal status, or deferred and why> |
